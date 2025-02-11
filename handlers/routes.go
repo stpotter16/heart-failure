@@ -1,7 +1,7 @@
 package handlers
 
 func addRoutes(s Server) {
-    mux := s.router
+	mux := s.router
 
-    mux.HandleFunc("GET /{$}", s.indexGet())
+	mux.HandleFunc("GET /{$}", s.indexGet())
 }

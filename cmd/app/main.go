@@ -12,29 +12,29 @@ import (
 )
 
 func main() {
-    port := loadPortConfiguration()
-    s := handlers.New()
-    if err := run(port, s); err != nil {
-        log.Fatalf("Application run failed: %v", err)
-    }
+	port := loadPortConfiguration()
+	s := handlers.New()
+	if err := run(port, s); err != nil {
+		log.Fatalf("Application run failed: %v", err)
+	}
 }
 
 func run(port string, s handlers.Server) error {
-    ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM)
-    defer stop()
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM)
+	defer stop()
 
-    http.ListenAndServe(port, s.Handler())
+	http.ListenAndServe(port, s.Handler())
 
-    <-ctx.Done()
-    log.Print("Received termination signal. Shutting down")
+	<-ctx.Done()
+	log.Print("Received termination signal. Shutting down")
 
-    return nil
+	return nil
 }
 
 func loadPortConfiguration() string {
-    port, present := os.LookupEnv("PORT")
-    if !present {
-        log.Fatalf("Unable to find $PORT environment variable")
-    }
-    return port
+	port, present := os.LookupEnv("PORT")
+	if !present {
+		log.Fatalf("Unable to find $PORT environment variable")
+	}
+	return port
 }
