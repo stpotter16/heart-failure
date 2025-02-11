@@ -15,5 +15,7 @@ func New() Server {
         router: http.NewServeMux(),
     }
 
+    addRoutes(s)
+
     return s
 }
